@@ -1,0 +1,4 @@
+ipc-worker>=0.0.5
+pyzmq
+sanic
+numpy
