@@ -2,3 +2,5 @@ ipc-worker>=0.0.6
 pyzmq
 sanic
 numpy
+bert_pretty
+nn_sdk
