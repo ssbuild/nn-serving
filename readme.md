@@ -1,27 +1,27 @@
 
+#推荐环境
+   linux python >=3.8
+    
 
+# 安装模块
 pip install -r nn-serving/requirements.txt
 
 
+##启动
 
-
+```
 cd script
 bash start.sh
+```
+
+##客户端测试
+`
+curl http://192.168.16.157:8081/predict -H "Content-Type: application/json" -X POST -d '{"param":{"mode":"cls"},"texts":["111"]}
+`
 
 
-
-http://localhost:8081/predict
-
-请求
-{
-    "param":{
-        "mode":"cls"
-    },
-    "texts":["111"]
-}
-
+`
 返回
-
 [
     [
         1.1050461530685425,
@@ -36,3 +36,5 @@ http://localhost:8081/predict
         1.4435145854949951
     ]
 ]
+`
+
