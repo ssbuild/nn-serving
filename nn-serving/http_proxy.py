@@ -6,7 +6,8 @@ import os
 from sanic import Sanic
 from sanic import response
 from multiprocessing import Process
-
+from config.config import config as nn_config
+import numpy as np
 
 
 class HTTP_Proxy(Process):
@@ -30,8 +31,7 @@ class HTTP_Proxy(Process):
         app = Sanic(__name__)
 
 
-
-        @app.route('/predict')
+        @app.route('/predict', methods=['POST'])
         def test_query(request):
             try:
                 r = request.form if request.form else request.json
@@ -41,19 +41,25 @@ class HTTP_Proxy(Process):
                 if len(texts) == 0 or texts is None:
                     return response.json({'code': -1, "msg": "invalid data"})
                 if param is None or param["mode"] is None:
-                    return response.json({'code': -1, "msg": "invalid data"})
+                    msg = "param is required"
+                    print(msg)
+                    return response.json({'code': -1, "msg": msg})
                 mode = param["mode"]
-                if mode not in self.queue_mapper:
-                    return response.json({'code': -1, "msg": "invalid data"})
+                if mode not in nn_config:
+                    msg = "mode not in " + ','.join(list(nn_config.keys()))
+                    print(msg)
+                    return response.json({'code': -1, "msg": msg })
 
 
-                instance = self.queue_mapper["mode"]
+                instance = self.queue_mapper[mode]
 
                 request_id = instance.put(r)
 
-                data = instance.get(request_id)
+                result = instance.get(request_id)
 
-                return response.json(data)
+                if isinstance(result,np.ndarray):
+                    result = result.tolist()
+                return response.json(result)
             except Exception as e:
                 raise response.json({'code': -1, "msg": str(e)})
         return app

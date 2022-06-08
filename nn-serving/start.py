@@ -101,8 +101,8 @@ if __name__ == '__main__':
 
     #gpu 数量
     device_num = 1
-    for k,config in nn_config.items():
-        group_name = 'serving_group_{}_1'.format(k)
+    for mode,config in nn_config.items():
+        group_name = 'serving_group_{}_1'.format(mode)
         # group_name
         # manager is an agent  and act as a load balancing
         # worker is real doing your work
@@ -116,7 +116,7 @@ if __name__ == '__main__':
             is_log_time=True,  # whether log compute time
         )
         process_list.append(instance)
-        queue_mapper[group_name] = instance
+        queue_mapper[mode] = instance
         instance.start()
 
     http_ = HTTP_Proxy(queue_mapper,
