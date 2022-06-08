@@ -20,7 +20,7 @@ bash start.sh
 
 ## 客户端测试
 `
-curl http://192.168.16.157:8081/predict -H "Content-Type: application/json" -X POST -d '{"param":{"mode":"cls"},"texts":["111"]}
+curl http://192.168.16.157:8081/predict -H "Content-Type: application/json" -X POST -d '{"param":{"mode":"cls"},"texts":["111"]}'
 `
 
 `
