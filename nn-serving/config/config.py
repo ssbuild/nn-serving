@@ -4,10 +4,10 @@
 
 import os
 
-base_path =  os.path.join(__file__,'..')
+base_path =  os.path.join(os.path.dirname(__file__),'../..')
 
 regression_conf = {
-    "model_dir": os.path.join(base_path,'model.ckpt'),
+    "model_dir": os.path.join(base_path,'train/model.ckpt'),
     "aes": {
         "use": False,
         "key": bytes([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]),

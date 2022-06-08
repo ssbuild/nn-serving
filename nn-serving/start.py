@@ -85,7 +85,7 @@ class My_regression_worker(ZMQ_process_worker):
     def run_once(self,request_data : dict):
         x1 = request_data.get('x1',np.random.rand(1,10))
         x2 = request_data.get('x1',np.random.rand(1,10))
-        max_len = self.config['max_len']
+        max_len = self.config.get("max_len",20)
 
         code,preds = self.sdk.process(0,x1,x2)
         if code != 0:
