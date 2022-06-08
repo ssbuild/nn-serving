@@ -1,5 +1,8 @@
-
-#推荐环境
+# 简介
+   nn-serving 是一个神经网络推理服务，推理冻结的模型并提供restful接口.
+   
+实例demo提供一个回顾预测 y = 1 *x1 + 2 * x2
+# 推荐环境
    linux python >=3.8
     
 
@@ -7,18 +10,17 @@
 pip install -r nn-serving/requirements.txt
 
 
-##启动
+## 启动
 
 ```
 cd script
 bash start.sh
 ```
 
-##客户端测试
+## 客户端测试
 `
 curl http://192.168.16.157:8081/predict -H "Content-Type: application/json" -X POST -d '{"param":{"mode":"cls"},"texts":["111"]}
 `
-
 
 `
 返回
