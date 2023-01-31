@@ -1,6 +1,6 @@
 ipc-worker>=0.0.6
 pyzmq
-sanic
+sanic >= 22.9
 numpy
 bert_pretty
 nn_sdk
