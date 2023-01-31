@@ -25,10 +25,11 @@ class HTTP_Proxy(Process):
         self.http_port = http_port
         self.queue_mapper = queue_mapper
 
-        self.app = self.create_app()
+        self.app = None
+        # self.app = self.create_app()
 
     def create_app(self):
-        app = Sanic(__name__)
+        app = Sanic('nn-' + __name__)
 
 
         @app.route('/predict', methods=['POST'])
@@ -65,6 +66,10 @@ class HTTP_Proxy(Process):
         return app
 
     def close_server(self):
-        self.app.stop()
+        if self.app is not None:
+            self.app.stop()
     def run(self):
-        self.app.run(host=self.http_ip, port=self.http_port, debug=False)
+        self.app = self.create_app()
+        self.app.prepare(host=self.http_ip, port=self.http_port, debug=False)
+        Sanic.serve_single(primary=self.app)
+        # self.app.run(host=self.http_ip, port=self.http_port, debug=False)

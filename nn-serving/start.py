@@ -2,15 +2,14 @@
 # @Time    : 2021/12/2 10:07
 # @Author  : wyw
 import copy
-import sys
-sys.path.append('.')
 import os
 import multiprocessing
 from config.config import config as nn_config
 from  http_proxy import HTTP_Proxy
 from ipc_worker.ipc_zmq_loader import IPC_zmq,ZMQ_process_worker
-from worker_regression import My_regression_worker
-from worker_bert import My_worker_bert
+# from worker_regression import My_regression_worker
+# from worker_bert import My_worker_bert
+import worker_none
 
 tmp_dir = './tmp'
 if not os.path.exists(tmp_dir):
@@ -33,7 +32,7 @@ if __name__ == '__main__':
         # manager is an agent  and act as a load balancing
         # worker is real doing your work
         instance = IPC_zmq(
-            CLS_worker=My_regression_worker,
+            CLS_worker=worker_none.My_worker,
             worker_args=(config,device_num),  # must be tuple
             worker_num=device_num * 2,  # number of worker Process
             group_name=group_name,  # share memory name
